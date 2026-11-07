@@ -1,1 +1,8 @@
-{"name":"homem-cinza","compatibility_date":"2026-11-01","assets":{"directory":"./public","not_found_handling":"single-page-application"}}
+{
+  // Worker homem-cinza: site embutido gerado por ferramentas/gerar-worker.py
+  "name": "homem-cinza",
+  "main": "dist/worker.js",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "observability": { "enabled": false }
+}
