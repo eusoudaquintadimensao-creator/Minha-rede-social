@@ -99,3 +99,10 @@ textarea{min-height:200px}
 @media (prefers-reduced-motion:reduce){.aguia .raios,.aguia-modal img.viva{animation:none}}
 .leitura table.tab{display:table}
 .lat-lang{display:flex;gap:6px}.lat-lang button{flex:1;min-height:40px;border-radius:10px;border:1px solid var(--borda);background:var(--p2);color:var(--mu);font:600 14px Barlow,sans-serif;cursor:pointer}.lat-lang button[aria-pressed=true]{color:#111;background:var(--ouro)}
+.instalar{display:flex;align-items:center;gap:12px;width:100%;border:1px solid #fff;background:#000;color:#fff;border-radius:var(--raio);padding:12px 14px;cursor:pointer;font:700 18px Barlow,sans-serif;text-align:left}
+.instalar[hidden]{display:none}.instalar img{width:44px;height:44px;border-radius:50%;flex:none}
+.inst-hero{display:grid;grid-template-columns:56px 1fr;grid-template-rows:auto auto;column-gap:14px;margin:0 0 12px;min-height:84px;box-shadow:0 0 0 1px rgba(255,255,255,.15),0 8px 30px rgba(255,255,255,.06)}
+.inst-hero img{grid-row:1/3;width:56px;height:56px}.inst-hero span{font-size:22px;align-self:end}.inst-hero small{font:400 14px Serif4,Georgia,serif;color:#cfcfcf}
+.lateral .instalar{font-size:16px;padding:10px 12px}.lateral .instalar img{width:34px;height:34px}
+img.selo{padding:0;border:0;background:none;border-radius:50%}
+.passos{text-align:left;font-size:18px;line-height:1.5}.passos li{margin:8px 0}

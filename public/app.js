@@ -21,6 +21,9 @@ var UI={
  aviso:["Isto não é brincadeira. A energia é alta. Se não estiver preparado, não entre em ressonância. Se o corpo apertar, pare.","This is not a game. The energy is high. If you are not prepared, do not enter resonance. If the body tightens, stop.","Esto no es un juego. La energía es alta. Si no estás preparado, no entres en resonancia. Si el cuerpo se aprieta, para."],
  estou:["Estou preparado · tocar","I am prepared · play","Estoy preparado · tocar"],fechar:["Fechar","Close","Cerrar"],ler:["Ler o aviso e a história","Read the warning and the story","Leer el aviso y la historia"],
  emerg:["Emergência: 190 · 192 · 193 (Brasil)","Emergency: 190 · 192 · 193 (Brazil)","Emergencia: 190 · 192 · 193 (Brasil)"],naoEnc:["Página não encontrada","Page not found","Página no encontrada"],voltar:["Voltar ao início","Back home","Volver al inicio"],
+ baixar:["Baixar o app","Get the app","Descargar la app"],baixarSub:["Ícone Cinza na tela do celular. Abre sem navegador e funciona sem rede.","Cinza icon on your home screen. Opens without the browser, works offline.","Ícono Cinza en la pantalla. Abre sin navegador y funciona sin red."],instalado:["App instalado. Procure o ícone Cinza.","App installed. Look for the Cinza icon.","App instalada. Busca el ícono Cinza."],
+ ios:["No iPhone/iPad, no Safari:","On iPhone/iPad, in Safari:","En iPhone/iPad, en Safari:"],ios1:["Toque em Compartilhar (o quadrado com a seta ↑) na barra do Safari.","Tap Share (the square with the ↑ arrow) in Safari’s bar.","Toca Compartir (el cuadrado con la flecha ↑) en la barra de Safari."],ios2:["Role e toque em “Adicionar à Tela de Início”.","Scroll and tap “Add to Home Screen”.","Desplázate y toca “Añadir a pantalla de inicio”."],ios3:["Confirme o nome Cinza e toque em Adicionar.","Keep the name Cinza and tap Add.","Deja el nombre Cinza y toca Añadir."],iosChrome:["Se estiver em outro navegador, abra homemcinza.com no Safari primeiro.","If you are in another browser, open homemcinza.com in Safari first.","Si estás en otro navegador, abre homemcinza.com en Safari primero."],
+ outro:["Neste navegador, use o menu (⋮) e escolha “Instalar app” ou “Adicionar à tela inicial”.","In this browser, open the menu (⋮) and choose “Install app” or “Add to Home screen”.","En este navegador, abre el menú (⋮) y elige “Instalar app” o “Añadir a pantalla de inicio”."],
  sobre:["Sobre","About","Sobre"],termos:["Termos","Terms","Términos"],priv:["Privacidade","Privacy","Privacidad"]};
 function t(k,v){var a=UI[k];var s=a?a[LANG==="en"?1:LANG==="es"?2:0]:k;if(v)for(var x in v)s=s.replace("{"+x+"}",v[x]);return s}
 var TABS=[["","🏠","inicio"],["consciencia","✨","consciencia"],["sobrevivencia","🎒","sobrevivencia"],["guias","📖","guias"],["mais","☰","mais"]];
@@ -47,7 +50,7 @@ function ligaBusca(lista,fixo){var i=document.getElementById("q"),g=document.get
 function inicio(){navs("");var P=IDX.pages;
  var dest=["guias__arquetipo","circulo","kit-72h","socorros","trilhas__comecar","porta"].map(pg).filter(Boolean),ferr=["aplicativos","modo","ferramentas","calculadora","plano","auditoria"].map(pg).filter(Boolean);
  var secoes=["consciencia","sobrevivencia","guias","mais"].map(function(c){return'<a class="card cat" href="#/c/'+c+'"><span>'+ICON[c]+'</span><span><b>'+t(c)+'</b><small>'+d3(DESC[c])+'</small></span></a>'}).join("");
- main.innerHTML='<h1>Homem Cinza</h1><p class="sub">'+t("sub")+'</p><div class="rot">'+t("comece")+'</div>'+solarHTML()+
+ main.innerHTML='<h1>Homem Cinza</h1><p class="sub">'+t("sub")+'</p><div class="rot">'+t("comece")+'</div>'+botaoInstalar()+solarHTML()+
  '<div class="hero aguia" id="aguia" role="button" tabindex="0" aria-label="'+esc(t("aguia"))+'"><img src="media/selo-1111.jpg" alt=""><i class="raios"></i><div><b>'+t("aguia")+'</b><p>'+t("aguiaSub")+'</p></div></div>'+
  '<input class="busca" id="q" type="search" placeholder="'+esc(t("busca",{n:P.length}))+'" aria-label="Buscar"><div class="rot">'+t("secoes")+'</div><div class="grade" id="res">'+secoes+'</div>'+
  '<div class="rot">'+t("ferr")+'</div><div class="grade">'+ferr.map(card).join("")+'</div><div class="rot">'+t("destaques")+'</div><div class="grade">'+dest.map(card).join("")+'</div>'+rodape();
@@ -98,6 +101,18 @@ function pagina(s){var p=pg(s);if(!p)return nao();navs(p.c);var T=window.CINZA_T
   document.title=(d.t||tit(p))+" · homemcinza.com"}).catch(function(e){console.error(e);main.innerHTML='<p class="aviso">'+t("erro")+'</p>'})}
 function nao(){navs("");main.innerHTML='<h1>'+t("naoEnc")+'</h1><p><a class="btn ouro" href="#/">'+t("voltar")+'</a></p>'}
 function rodape(){return'<p class="rodape"><a href="#/p/sobre">'+t("sobre")+'</a> · <a href="#/p/termos">'+t("termos")+'</a> · <a href="#/p/privacidade">'+t("priv")+'</a> · <a href="#/p/cookies">Cookies</a> · <a href="mailto:contatohomemcinza@gmail.com">contatohomemcinza@gmail.com</a><br>'+t("emerg")+' · '+t("vinculante")+'</p>'}
+
+/* instalar o app (PWA) */
+var PROMPT=null;function instalado(){return(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true||localStorage.getItem("cinza-instalado")==="1"}
+function ehIOS(){return/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1)}
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();PROMPT=e;atualizaInstalar()});
+window.addEventListener("appinstalled",function(){PROMPT=null;try{localStorage.setItem("cinza-instalado","1")}catch(e){}atualizaInstalar();tela('<img src="/icons/icon-192.png" width="96" alt=""><p class="big">'+t("instalado")+'</p>')});
+function podeMostrar(){return!instalado()}
+function atualizaInstalar(){var on=podeMostrar();[].forEach.call(document.querySelectorAll(".instalar"),function(b){b.hidden=!on;b.onclick=instalar;var s=b.querySelector("span");s&&(s.textContent=t("baixar"))});var l=document.getElementById("inst-lat");l&&(l.lastChild.textContent=t("baixar"))}
+function instalar(){if(PROMPT){var p=PROMPT;PROMPT=null;p.prompt();p.userChoice.then(function(r){window.__instalarEscolha=r.outcome;atualizaInstalar()});return}
+ if(ehIOS())return tela('<img src="/icons/apple-touch-icon.png" width="96" style="border-radius:22px" alt=""><p class="big">'+t("baixar")+'</p><p>'+t("ios")+'</p><ol class="passos">'+["ios1","ios2","ios3"].map(function(k){return"<li>"+t(k)+"</li>"}).join("")+'</ol><p class="sub">'+t("iosChrome")+'</p>');
+ tela('<img src="/icons/icon-192.png" width="96" alt=""><p class="big">'+t("baixar")+'</p><p>'+t("outro")+'</p>')}
+function botaoInstalar(){return'<button class="instalar inst-hero" hidden><img src="/icons/icon-192.png" alt=""><span>'+t("baixar")+'</span><small>'+t("baixarSub")+'</small></button>'}
 /* sobreposição de tela cheia para ferramentas */
 function tela(h,o){fechaTela();var d=document.createElement("div");d.className="tela"+(o&&o.claro?" clara":"");d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");
  d.innerHTML='<button class="tela-x" aria-label="'+t("fechar")+'">×</button><div class="tela-c">'+h+'</div>';document.body.appendChild(d);d.querySelector(".tela-x").onclick=fechaTela;d.querySelector(".tela-x").focus()}
@@ -108,7 +123,7 @@ window.CINZA={esc:esc,lang:function(){return LANG},idx:function(){return IDX},pg
 function rota(){fechaTela();sair.splice(0).forEach(function(f){try{f()}catch(e){}});window.speechSynthesis&&speechSynthesis.cancel();
  var h=location.hash.replace(/^#\/?/,""),m;document.title="Homem Cinza · homemcinza.com";
  if(!h)inicio();else if(m=h.match(/^c\/(\w+)$/))DESC[m[1]]?categoria(m[1]):nao();else if(m=h.match(/^p\/([\w-]+)$/))pagina(m[1]);else if(h==="salvos")listaSalvos();else if(h==="ajustes")ajustes();else nao();
- window.scrollTo(0,0);main.focus({preventScroll:true})}
+ window.scrollTo(0,0);main.focus({preventScroll:true});atualizaInstalar()}
 document.getElementById("b-busca").onclick=function(){location.hash="#/";setTimeout(function(){var q=document.getElementById("q");q&&q.focus()},80)};
 document.getElementById("b-lang").onclick=function(){var o=["pt","en","es"];LANG=o[(o.indexOf(LANG)+1)%3];try{localStorage.setItem(LK,LANG)}catch(e){}cache={};rota()};
 (function(){var p=location.pathname.replace(/\/index\.html$/,"/");if(p==="/ajustes"||p==="/salvos"){history.replaceState(null,"","/#/"+p.slice(1));return}if(p!=="/"&&!location.hash){history.replaceState(null,"","/#/p/"+(p.replace(/^\/|\/$/g,"").replace(/\//g,"__")))}})();
