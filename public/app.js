@@ -34,7 +34,7 @@ function bloco(b){switch(b.t){
  case"h1":return"";case"h2":case"h3":case"h4":return'<'+b.t+' id="h'+(++bloco.n)+'">'+esc(b.x)+'</'+b.t+'>';
  case"li":return'<ul><li>'+esc(b.x)+'</li></ul>';case"blockquote":return'<blockquote>'+esc(b.x)+'</blockquote>';
  case"img":return'<img loading="lazy" src="'+esc(b.src)+'" alt="'+esc(b.alt)+'">';
- case"video":return'<video controls playsinline preload="none" src="'+esc(b.src)+'"></video>';
+ case"video":return'<video controls playsinline preload="none" src="'+esc(ORIG+"/"+b.src.split("/").pop())+'"></video>';
  case"audio":return'<audio controls preload="none" src="'+esc(b.src)+'"></audio>';
  case"table":return'<table>'+b.rows.map(function(r){return'<tr>'+r.map(function(c){return'<td>'+esc(c)+'</td>'}).join("")+'</tr>'}).join("")+'</table>';
  default:return'<p>'+esc(b.x)+'</p>'}}
