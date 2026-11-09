@@ -1,5 +1,5 @@
 (function(){"use strict";
-var SOLAR="https://eusoudaquintadimensao-creator.github.io/mestre-solar/",ORIG="https://mist-apex-beam-pilot.grok.me";
+var SOLAR="https://eusoudaquintadimensao-creator.github.io/mestre-solar/",PULSO="https://jade-vivid-drum-hill.grok.me",ORIG="https://mist-apex-beam-pilot.grok.me";
 var LK="cinza-lang-v1",SALVOS_K="cinza-salvos-v1";
 function detecta(){var s=null;try{s=localStorage.getItem(LK)}catch(e){}if(s)return s;var n=(navigator.language||"pt").slice(0,2);return n==="en"||n==="es"?n:"pt"}
 var LANG=detecta();
@@ -8,6 +8,7 @@ var UI={
  sub:["Comportamento, sobrevivencialismo, preparação e expansão de consciência.","Behavior, survivalism, preparedness and expansion of consciousness.","Comportamiento, supervivencialismo, preparación y expansión de conciencia."],
  comece:["Comece por aqui","Start here","Empieza aquí"],solar:["O portal do conhecimento, com lições, Águia e a Jornada.","The knowledge portal: lessons, the Eagle and the Journey (in Portuguese).","El portal del conocimiento: lecciones, el Águila y la Jornada (en portugués)."],
  pod:["Aurora e Caio conversam sobre cada lição.","Aurora and Caio talk through each lesson.","Aurora y Caio conversan sobre cada lección."],
+ pulso:["Pulso — o radar do que está crescendo agora no GitHub: ferramentas de tecnologia e IA com links oficiais.","Pulso — the radar of what is growing on GitHub now: tech and AI tools with official links.","Pulso — el radar de lo que está creciendo ahora en GitHub: herramientas de tecnología e IA con enlaces oficiales."],
  aguia:["A águia primordial · 1111 Hz","The primordial eagle · 1111 Hz","El águila primordial · 1111 Hz"],aguiaSub:["Toque a águia para ouvir, no seu ritmo.","Tap the eagle to listen, at your own pace.","Toca el águila para escuchar, a tu ritmo."],
  busca:["Buscar em {n} páginas…","Search {n} pages…","Buscar en {n} páginas…"],secoes:["Seções","Sections","Secciones"],destaques:["Destaques","Highlights","Destacados"],ferr:["Ferramentas","Tools","Herramientas"],
  nada:["Nada encontrado.","Nothing found.","Nada encontrado."],salvar:["Salvar","Save","Guardar"],salvo:["Salvo","Saved","Guardado"],comp:["Compartilhar","Share","Compartir"],ouvir:["Ouvir","Listen","Escuchar"],parar:["Parar","Stop","Parar"],
@@ -39,7 +40,7 @@ function pg(s){return IDX.pages.filter(function(x){return x.s===s})[0]}
 function dados(s,l){l=l||LANG;var k=l+"/"+s;if(cache[k])return Promise.resolve(cache[k]);
  var tenta=function(u){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()})};
  return(l==="pt"?tenta("data/"+s+".json"):tenta("data/"+l+"/"+s+".json").catch(function(){return tenta("data/"+s+".json")})).then(function(d){cache[k]=d;return d})}
-function solarHTML(){return'<div class="solar"><a class="s1" href="'+SOLAR+'" target="_blank" rel="noopener"><span class="em">☀️</span><span><b>Conhecimento Solar</b><small>'+t("solar")+'</small></span></a><a class="s2" href="'+SOLAR+'#podcast" target="_blank" rel="noopener"><span class="em">🎙️</span><span><b>Podcast Sol Nascente</b><small>'+t("pod")+'</small></span></a></div>'}
+function solarHTML(){return'<div class="solar"><a class="s1" href="'+SOLAR+'" target="_blank" rel="noopener"><span class="em">☀️</span><span><b>Conhecimento Solar</b><small>'+t("solar")+'</small></span></a><a class="s2" href="'+SOLAR+'#podcast" target="_blank" rel="noopener"><span class="em">🎙️</span><span><b>Podcast Sol Nascente</b><small>'+t("pod")+'</small></span></a><a class="s3" href="'+PULSO+'" target="_blank" rel="noopener"><span class="em">📡</span><span><b>Pulso</b><small>'+t("pulso")+'</small></span></a></div>'}
 function card(p){return'<a class="card'+(window.CINZA_TOOLS&&CINZA_TOOLS[p.s]?' tem-tool':'')+'" href="#/p/'+esc(p.s)+'"><b>'+esc(tit(p))+'</b>'+(des(p)?'<small>'+esc(des(p))+'</small>':'')+'</a>'}
 function navs(atual){var h="";TABS.forEach(function(x){h+='<a href="#/'+(x[0]?"c/"+x[0]:"")+'"'+(atual===x[0]?' aria-current="page"':'')+'><span>'+x[1]+'</span>'+t(x[2])+'</a>'});
  document.getElementById("nav-abas").innerHTML=h;document.getElementById("nav-lateral").innerHTML=h+'<a href="#/ajustes"'+(atual==="ajustes"?' aria-current="page"':'')+'><span>⚙️</span>'+t("ajustes")+'</a>';

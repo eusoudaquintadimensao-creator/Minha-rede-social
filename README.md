@@ -1,7 +1,7 @@
 # Homem Cinza — versão Cloudflare
 
 Site estático (PWA) de homemcinza.com, refeito com layout novo: abas embaixo no celular, barra lateral e grade no computador.
-A primeira aba dá acesso ao **Conhecimento Solar** e ao **Podcast Sol Nascente**.
+A primeira aba dá acesso ao **Conhecimento Solar** e ao **Podcast Sol Nascente**, com um card secundário para o **Pulso** (radar do GitHub).
 
 - `pages.json`: conteúdo extraído do site original (texto de 148 páginas).
 - `build.py`: gera `public/data/*.json` e as seções.
